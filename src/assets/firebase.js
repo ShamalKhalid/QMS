@@ -1,17 +1,8 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  serverTimestamp,
-} from "firebase/firestore";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getFirestore, collection, addDoc, serverTimestamp } from "firebase/firestore";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// Your Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyAlDyDm8lmGzm741WtcZ9gJIdhlym5LkeU",
   authDomain: "qms-project-27a3c.firebaseapp.com",
@@ -24,10 +15,10 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-
+const auth = getAuth(app);
 const db = getFirestore(app);
 
+// Function to submit data to Firestore
 const submitDataToFirestore = async (data) => {
   try {
     data.date = serverTimestamp();
@@ -38,4 +29,26 @@ const submitDataToFirestore = async (data) => {
     console.error("Error submitting data: ", error);
   }
 };
-export { db, submitDataToFirestore };
+
+const signUp = async (email, password) => {
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    alert("SignUp Succesfull!")
+    console.log("Signed up successfully! User ID:", userCredential.user.uid);
+    return userCredential.user;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const signIn = async (email, password) => {
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    // If login is successful, no need to return anything as Firebase handles the login internally
+    console.log("Login Successful")
+  } catch (error) {
+    throw error;
+  }
+};
+
+export { auth, db, submitDataToFirestore, signUp, signIn };
