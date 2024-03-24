@@ -9,21 +9,21 @@ export default function SideBar() {
             <h1 className="px-2 py-2 font-sans text-black size-2">User</h1>
           </div>
           <div>
-            <span class="material-symbols-outlined text-white px-4 py-4">
+            <span className="material-symbols-outlined text-white px-4 py-4">
               menu
             </span>
           </div>
           <div>
-            <span class="material-symbols-outlined text-white px-4 py-4">
+            <span className="material-symbols-outlined text-white px-4 py-4">
               schedule
             </span>
           </div>
           <div className="mt-auto">
             <div className="mx-4 my-2 text-white">
-              <span class="material-symbols-outlined">tune</span>
+              <span className="material-symbols-outlined">tune</span>
             </div>
             <div className="mx-4 text-white">
-              <span class="material-symbols-outlined">help</span>
+              <span className="material-symbols-outlined">help</span>
             </div>
           </div>
         </div>
