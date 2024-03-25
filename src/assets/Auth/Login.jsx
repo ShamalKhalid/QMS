@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { signIn } from '../firebase';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -11,9 +11,12 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            await signIn(email, password);
-            // Redirect or do something else after successful login
-            navigate('/dashboard');
+            const isAdmin = await signIn(email, password);
+            if (isAdmin) {
+                navigate('/adminhome');
+            } else {
+                navigate('/userhome');
+            }
         } catch (error) {
             setError(error.message);
         }

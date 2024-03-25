@@ -1,7 +1,16 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { getFirestore, collection, addDoc, serverTimestamp } from "firebase/firestore";
-
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  serverTimestamp,
+} from "firebase/firestore";
+// import bcrypt from "bcrypt"
 // Your Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyAlDyDm8lmGzm741WtcZ9gJIdhlym5LkeU",
@@ -32,8 +41,12 @@ const submitDataToFirestore = async (data) => {
 
 const signUp = async (email, password) => {
   try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    alert("SignUp Succesfull!")
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    alert("SignUp Succesfull!");
     console.log("Signed up successfully! User ID:", userCredential.user.uid);
     return userCredential.user;
   } catch (error) {
@@ -44,8 +57,10 @@ const signUp = async (email, password) => {
 const signIn = async (email, password) => {
   try {
     await signInWithEmailAndPassword(auth, email, password);
+    const isAdmin = email === "admin@tecnavis.com" && password === "bCrypt@tecnavis1983";
+    return isAdmin
     // If login is successful, no need to return anything as Firebase handles the login internally
-    console.log("Login Successful")
+    console.log("Login Successful");
   } catch (error) {
     throw error;
   }
